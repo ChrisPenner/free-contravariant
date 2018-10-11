@@ -3,7 +3,9 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE RankNTypes #-}
 
-module FreeC where
+module FreeC
+  (
+  ) where
 
 import Control.Applicative
 import Control.Arrow
@@ -33,22 +35,6 @@ instance Alternative f => Divisible (FC f) where
           FC bbb = contramap (fst . split) (FC cvb)
           FC ccc = contramap (snd . split) (FC cvc)
        in FC (bbb <|> ccc)
-  -- divide split (FC cvb) (FC cvc) = FC ((thingB <$> cvb) <|> (thingC <$> cvc))
-  --   where
-  --     thingB :: (b -> FC f b) -> (a -> FC f a)
-  --     thingB fb =
-  --       let toB :: a -> b
-  --           toB = fst <$> split
-  --           t :: FC f b -> FC f a
-  --           t = contramap toB
-  --        in (\a -> t . fb . toB $ a)
-  --     thingC :: (c -> FC f c) -> (a -> FC f a)
-  --     thingC fc =
-  --       let toC :: a -> c
-  --           toC = snd <$> split
-  --           t :: FC f c -> FC f a
-  --           t = contramap toC
-  --        in (\a -> t . fc . toC $ a)
   conquer :: FC f a
   conquer = FC empty
 
